@@ -180,6 +180,36 @@ alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/mvim "$@"'
 
+function pid() {
+  help() {
+    echo 'pid help'
+    echo 'Usage : pid [option] command'
+    return 1
+  }
+  option=""
+  for file in $*
+  do
+    case $file in
+      -h|--help)
+        help
+        return 1
+        ;;
+      -a|--all)
+        option="all"
+        ;;
+      *)
+        if [ "$option" == "all" ]; then
+          ps -ax | grep $file | grep -v ' grep '
+        else
+          ps -ax | grep $file | grep -v ' grep ' | awk "{print \$1}"
+        fi
+    esac
+  done
+  return 1
+}
+
+alias sigkill="kill -SIGKILL"
+
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
@@ -209,3 +239,4 @@ function peco-select-history() {
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
+
