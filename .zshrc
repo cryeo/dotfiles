@@ -1,10 +1,10 @@
 # 少し凝った zshrc
 # License : MIT
 # http://mollifier.mit-license.org/
-export PATH=$PATH:/Users/chaerim/.rbenv/shims:/Users/chaerim/.rbenv/bin:/usr/local/Cellar/qt5/5.5.1/bin:/Users/chaerim/.nvm/versions/node/v4.2.1/bin:/usr/local/bin:/opt/X11/bin:/Library/TeX/texbin:/Library/Python/2.7/site-packages
+export PATH=$PATH:/Users/cryeo/.rbenv/shims:/Users/cryeo/.rbenv/bin:/usr/local/Cellar/qt5/5.5.1/bin:/Users/cryeo/.nvm/versions/node/v4.2.1/bin:/usr/local/bin:/opt/X11/bin:/Library/TeX/texbin:/Library/Python/2.7/site-packages
 export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
 
-export ZSH=/Users/chaerim/.oh-my-zsh
+export ZSH=/Users/cryeo/.oh-my-zsh
 ZSH_THEME="wedisagree"
 
 ########################################
