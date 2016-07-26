@@ -1,38 +1,53 @@
-# 少し凝った zshrc
-# License : MIT
-# http://mollifier.mit-license.org/
-export PATH=$PATH:/Users/cryeo/.rbenv/shims:/Users/cryeo/.rbenv/bin:/usr/local/Cellar/qt5/5.5.1/bin:/Users/cryeo/.nvm/versions/node/v4.2.1/bin:/usr/local/bin:/opt/X11/bin:/Library/TeX/texbin:/Library/Python/2.7/site-packages
-export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"
-
+## zsh
 export ZSH=/Users/cryeo/.oh-my-zsh
 ZSH_THEME="wedisagree"
 
-########################################
-# 環境変数
+## pyenv
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
+## rbenv
+export RBENV_ROOT=$HOME/.rbenv
+export PATH=$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH
+if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
+
+## nvm
+export NVM_ROOT=$HOME/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
+## TeX
+export PATH=$PATH:/Library/TeX/texbin
+
+## PHP
+export PATH=$(brew --prefix homebrew/php/php56)/bin:$PATH
+
+## Postgresql
+export PGDATA=/usr/local/var/postgres
+
+## set default editor as vim
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+
+## 環境変数
 export LANG=ja_JP.UTF-8
 
-
-# 色を使用出来るようにする
+## 色を使用出来るようにする
 autoload -Uz colors
 colors
 
-# emacs 風キーバインドにする
+## emacs風キーバインドにする
 bindkey -e
 
-# ヒストリの設定
+## ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-# プロンプト
-# 1行表示
-# PROMPT="%~ %# "
-# 2行表示
+## プロンプト
 PROMPT="%{${fg[green]}%}[%n@%m]%{${reset_color}%} %~
 %# "
 
-
-# 単語の区切り文字を指定する
+## 単語の区切り文字を指定する
 autoload -Uz select-word-style
 select-word-style default
 # ここで指定した文字は単語区切りとみなされる
@@ -115,18 +130,12 @@ setopt hist_reduce_blanks
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
 
-########################################
-# キーバインド
+## key bind
 
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
 bindkey '^R' history-incremental-pattern-search-backward
 
-########################################
-# エイリアス
-
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
-
+## alias
 
 alias la='ls -a'
 alias ll='ls -l'
@@ -157,7 +166,6 @@ elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'
 fi
 
-########################################
 # OS 別の設定
 case ${OSTYPE} in
     darwin*)
@@ -171,15 +179,13 @@ case ${OSTYPE} in
         ;;
 esac
 
-# vim:set ft=zsh:
-#
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias mvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/mvim "$@"'
+alias sigkill="kill -SIGKILL"
 
+## pid
 function pid() {
   help() {
     echo 'pid help'
@@ -208,22 +214,7 @@ function pid() {
   return 1
 }
 
-alias sigkill="kill -SIGKILL"
-
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
-
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
-
-alias qmake='/usr/local/Cellar/qt5/5.5.1/bin/qmake'
-export QT_SDK_ROOT=/usr/local/Cellar/qt5/5.5.1
-export PATH=$QT_SDK_ROOT/bin:$PATH
-export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:~/include
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PGDATA="/usr/local/var/postgres"
-
-if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
-
+## peco history
 function peco-select-history() {
     local tac
     if which tac > /dev/null; then
@@ -239,4 +230,3 @@ function peco-select-history() {
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
-
