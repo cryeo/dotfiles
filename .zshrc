@@ -28,6 +28,9 @@ export PGDATA=/usr/local/var/postgres
 ## set default editor as vim
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 
+## qt
+export PATH=$(brew --prefix qt5)/bin:$PATH
+
 ## 環境変数
 export LANG=ja_JP.UTF-8
 
