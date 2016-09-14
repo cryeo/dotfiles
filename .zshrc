@@ -13,14 +13,20 @@ export PATH=$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
 
 ## nvm
-export NVM_ROOT=$HOME/.nvm
-source $(brew --prefix nvm)/nvm.sh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 ## TeX
 export PATH=$PATH:/Library/TeX/texbin
 
 ## PHP
 export PATH=$(brew --prefix homebrew/php/php56)/bin:$PATH
+
+## path
+export PATH=/usr/local/bin:/usr/bin:$PATH
+
+## cling
+export PATH=$PATH:$HOME/cling/bin
 
 ## Postgresql
 export PGDATA=/usr/local/var/postgres
